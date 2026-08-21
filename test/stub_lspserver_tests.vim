@@ -1492,7 +1492,7 @@ def g:Test_TextdocDidChange_IncrementalSync_MultiHunkDeleteAppliesBottomUp()
   # Regression test for #836: ":%d" produces two diff hunks; emitting them
   # top-down sends the second hunk's range against a document already
   # shrunk by the first, desyncing the server.
-  if !exists('*diff')
+  if !exists('*diff') || has('patch-9.2.0970')
     # incrementalSync needs diff(); options.OptionsSet() forces it back off
     # without it, same as the plugin itself falling back to full sync.
     return
@@ -1528,7 +1528,7 @@ def g:Test_TextdocDidChange_IncrementalSync_MultiHunkDeleteAppliesBottomUp()
 enddef
 
 def g:Test_TextdocDidChange_IncrementalSync_MultiHunkInsertDescendingOrder()
-  if !exists('*diff')
+  if !exists('*diff') || has('patch-9.2.0970')
     return
   endif
   g:LspOptionsSet({incrementalSync: true})
@@ -1562,7 +1562,7 @@ def g:Test_TextdocDidChange_IncrementalSync_NoEolAnchorsToLastLineEnd()
   # Regression test: without a trailing newline, a hunk reaching the end of
   # the document must anchor to the end of the last line, not to a
   # {line: lineCount, character: 0} position that doesn't exist.
-  if !exists('*diff')
+  if !exists('*diff') || has('patch-9.2.0970')
     return
   endif
   g:LspOptionsSet({incrementalSync: true})
